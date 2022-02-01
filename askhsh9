@@ -1,0 +1,95 @@
+try:
+    # Για κάποιο λόγο στο visual code μου τρέχει κανονικά με relative path αλλα όταν το τρέχ σαν .py οδηγεί σε crash. Για αυτό τον λόγο αλλάξτε το path με βάση που είναι το αρχείο στον υπολογιστή σας.
+    with open("D:/PANEP/python/examhnou/file.txt", "r") as f:
+        file = f.read()
+except FileNotFoundError:
+    print("File not found. Check the path variable and filename (Press a key)")
+    input()
+    exit()
+
+
+sum1,sum0,max0,max1,turn=0,0,0,0,0
+max=len(file)
+print("Number of letters to check:",max)
+flag=True
+text="Loading   "
+
+#random math stuff for loading
+max=str(max)
+
+step=int(max[:2])*2
+
+step=step*pow(10,2)
+step=int(step)
+
+max=(int(max))
+
+
+for x in file:
+ if turn%step==0:
+  if text=="Loading   ":
+    text="Loading.  "   
+    
+  elif text=="Loading.  ":  
+    text="Loading.. "
+  
+  elif text=="Loading.. ":
+    text="Loading..."   
+  else:
+   text="Loading   "         
+    
+
+ turn+=1
+ per=(turn/max)*100
+ if per<10:
+  per=str(per)[:1]
+  print(text,per," %", end="\r")
+ elif per<100:
+  per=str(per)[:2]   
+  print(text,per," %", end="\r") 
+ else:
+  per=str(per)[:3] 
+  print("Loaded    ",per )
+ 
+
+ 
+ 
+ temp=bin(ord(x))[2:]
+ if len(temp)<7:
+     string=""
+     for i in range(len(temp),7):
+         string=string+"0"
+     temp=string+temp    
+         
+ if len(temp)<7:
+     flag=False
+     
+ if x==" ":
+     x="space"    
+     
+ for y in temp:
+     if y=="1":
+         if sum1==0:
+             if sum0>max0:
+                 max0=sum0
+             sum0=0
+         
+         sum1+=1
+     else:
+         if sum0==0:
+             if sum1>max1:
+                 max1=sum1
+             sum1=0
+         sum0+=1
+
+ 
+ 
+print("-------------------------------------")
+print("The biggest sequence of 1 had", max1,"1s")
+print("The biggest sequence of 0 had", max0,"0s")  
+print("-------------------------------------")
+
+if flag==False:
+    print("Error1 Detected")
+
+input()
