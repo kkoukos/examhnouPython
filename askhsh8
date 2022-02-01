@@ -1,0 +1,150 @@
+
+
+import random
+ 
+
+class bishop:
+    x = ""
+    y = ""
+
+class rook:
+    x = ""
+    y = ""
+
+rook =rook()
+bishop =bishop()
+
+while(True): 
+
+ while True:
+  print("Choose a board size by typing the number(Type exit to terminate):")
+  print(" 1. 8x8")
+  print(" 2. 7x8")
+  print(" 3. 7x7")
+  temp = input().lower()
+  if temp=="exit":
+      exit()
+  if temp=="1":
+   x=8
+   y=8
+   break
+  elif temp=="2" :
+   x=7
+   y=8
+   break
+  elif temp=="3" :
+   x=7
+   y=7
+   break
+  else:
+   print("Please insert a valid value.")
+ 
+ range = x*y
+ sum1=0
+ sum2=0
+ sum3=0
+ 
+ i=1
+ while(True):
+  
+  flag2= False
+  n1 = random.randint(1,range)
+  
+  while(True):
+   n2 = random.randint(1,range)
+   if not(n1==n2):
+       break
+ 
+  if n1%x==0:  
+   bishop.y= n1//x
+   bishop.x=x
+  else:
+   bishop.y=n1//x+1
+   bishop.x=n1%x
+
+  if n2%8==0:  
+   rook.y= n2//x
+   rook.x=x
+  else:
+   rook.y=n2//x+1
+   rook.x=n2%x
+   
+  
+      
+
+   if (bishop.x == rook.x) or (bishop.y == rook.y):
+    sum2+=1
+    flag2=True
+
+   else:
+       flag=False
+       tempx=bishop.x
+       tempy=bishop.y
+       if bishop.x<rook.x:
+            if bishop.y>rook.y:
+               
+               while(True):
+                tempx+=1
+                tempy-=1
+                if tempx>x or tempy<1 :
+                    break
+                elif tempx==rook.x and tempy==rook.y:
+                    flag=True
+                    break
+            
+            else:
+                while(True):
+                 tempx+=1
+                 tempy+=1
+                 if tempx>x or tempy>y:
+                     break
+                 elif tempx==rook.x and tempy==rook.y:
+                     flag=True
+                     break
+       else:
+            if bishop.y>rook.y:
+               
+               while(True):
+                tempx-=1
+                tempy-=1
+                if tempx<1 or tempy<1:
+                    break
+                elif tempx==rook.x and tempy==rook.y:
+                    flag=True
+                    break
+            
+            else:
+                while(True):
+                 tempx-=1
+                 tempy+=1
+                 if tempx<1 or tempy>y:
+                     break
+                 elif tempx==rook.x and tempy==rook.y:
+                     flag=True
+                     break       
+       if flag==True:
+           sum1+=1
+           flag2=True
+  
+  i+=1 
+  if flag2==False:
+      sum3+=1
+
+  if i>100:
+      break
+
+ print("------------------------------------")
+ print("Out of 100 games:")
+ print("Bishop Player`s wins:",sum1)
+ print("Rook Player`s wins:",sum2)
+ print("Total draws:",sum3)
+ print("------------------------------------")
+ 
+
+ 
+
+
+
+  
+
+
