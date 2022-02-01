@@ -1,0 +1,140 @@
+
+
+try:
+    # Για κάποιο λόγο στο visual code μου τρέχει κανονικά με relative path αλλα όταν το τρέχ σαν .py οδηγεί σε crash. Για αυτό τον λόγο αλλάξτε το path με βάση που είναι το αρχείο στον υπολογιστή σας.
+    with open("D:/PANEP/python/examhnou/23.txt", "r") as f:
+        file = f.read()
+except FileNotFoundError:
+    print("File not found. Check the path variable and filename (Press a key)")
+    input()
+    exit()
+
+print("Loading Please Wait")
+
+range1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
+
+temp = " "
+file_list = []
+
+
+for x in file:
+
+    if x in range1:
+
+        file_list.append(x)
+        temp = x
+
+    else:
+        if not(temp == " "):
+            file_list.append(" ")
+            temp = " "
+
+
+file2 = "".join(file_list)
+file2 = file2.split(" ")
+
+
+f2n = []
+
+
+counter = [0]
+
+max = 0
+for x in file2:
+    f2n.append(len(x))
+    if max < len(x):
+        max = len(x)
+
+
+for i in range(1, max+1):
+    counter.append(0)
+
+
+stack = [0]
+flag = True
+for z in range(1, max+1):
+
+    for i in range(0, len(f2n)):
+        if f2n[i] == z:
+            stack.append(file2[i])
+            counter[z] += 1
+
+
+while(True):
+    if len(counter) > 10:
+
+        for i in range(max, 10, -1):
+
+            total = sum(counter)
+            if counter[i] > 0:
+
+                t1 = counter[20-i]
+                t2 = counter[i]
+                if t1 >= t2:
+                    for z in range(total, total-t2, -1):
+
+                        stack.pop(z)
+                        counter[i] = counter[i]-1
+
+                    total = 0
+
+                    for z in range(0, 20-i):
+                        total = total+counter[z]
+                    total = total+1
+
+                    for z in range(t2):
+                        stack.pop(total)
+                        counter[20-i] = counter[20-i]-1
+                else:
+                    for z in range(total, total-t1, -1):
+
+                        stack.pop(z)
+                        counter[i] = counter[i]-1
+
+                    total = 0
+                    for z in range(0, 20-i):
+                        total = total+counter[z]
+                    total = total+1
+
+                    for z in range(t1):
+                        stack.pop(total)
+                        counter[20-i] = counter[20-i]-1
+        
+        total=0
+        t1 = counter[10]
+        
+        if counter[10] % 2 == 0:
+         counter[10] = 0
+        else:
+         counter[10] = 1
+
+        for z in range(0, 10):
+         total = total+counter[z]
+
+
+        for i in range(t1-counter[10]):
+          stack.pop(total)
+
+
+        if counter[len(counter)-1] == 0:
+
+          while(True):
+
+            if counter[len(counter)-1] == 0:
+             counter.pop(len(counter)-1)
+
+            else:
+             break                
+
+    break
+
+
+
+
+
+for i in range(1, len(counter)):
+    print("There were ", counter[i], " words with ", i, " letters.")
+
+input()
+print("Press any button to terminate")
